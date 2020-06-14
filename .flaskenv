@@ -1,0 +1,5 @@
+FLASK_APP=blog.py
+FLASK_DEBUG=0
+
+MAIL_PORT=8025
+MAIL_SERVER=localhost
