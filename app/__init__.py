@@ -14,7 +14,7 @@ from flask_babel import Babel, lazy_gettext as _l
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
-migrate = Migrate(app,   db)
+migrate = Migrate(app, db)
 mail = Mail(app)
 login = LoginManager(app)
 login.login_message = _l('Please login to access this page!')
