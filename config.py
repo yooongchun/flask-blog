@@ -17,3 +17,8 @@ class Config(object):
     ADMINS = ['yooongchun@foxmail.com']
 
     POSTS_PER_PAGE = 3
+
+    LANGUAGES = ['en', 'zh']
+
+    BAIDU_TRANS_APP_ID = os.environ.get('BAIDU_TRANS_APP_ID', '20200617000498218')
+    BAIDU_TRANS_SECRET_KEY = os.environ.get('BAIDU_TRANS_SECRET_KEY', 'DHnMGRVkPQt2UNTE9tND')
