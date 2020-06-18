@@ -24,3 +24,5 @@ class Config(object):
 
     BAIDU_TRANS_APP_ID = os.environ.get('BAIDU_TRANS_APP_ID')
     BAIDU_TRANS_SECRET_KEY = os.environ.get('BAIDU_TRANS_SECRET_KEY')
+
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
