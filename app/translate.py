@@ -1,7 +1,7 @@
 import requests
-import urllib
+from flask import current_app
 from flask_babel import _
-from app import app
+import urllib
 from hashlib import md5
 from random import randint
 import json
@@ -9,8 +9,8 @@ import json
 
 def translate(text, source_language, dest_language):
     baidu_trans_url = 'https://fanyi-api.baidu.com/api/trans/vip/translate'
-    appid = app.config.get('BAIDU_TRANS_APP_ID')
-    secret_key = app.config.get('BAIDU_TRANS_SECRET_KEY')
+    appid = current_app.config.get('BAIDU_TRANS_APP_ID')
+    secret_key = current_app.config.get('BAIDU_TRANS_SECRET_KEY')
 
     if not appid or not secret_key:
         return _('Error: the translation service is not configured.')
@@ -19,7 +19,7 @@ def translate(text, source_language, dest_language):
     sign = appid + text + str(salt) + secret_key
     sign = md5(sign.encode()).hexdigest()
     api = '{}?appid={}&q={}&from={}&to={}&salt={}&sign={}'.format(baidu_trans_url, appid, urllib.parse.quote(text),
-                                                                source_language, dest_language, salt, sign)
+                                                                  source_language, dest_language, salt, sign)
     try:
         response = requests.get(api)
         if response.status_code != 200:
@@ -28,6 +28,6 @@ def translate(text, source_language, dest_language):
         if res.get('error_code'):
             return _('Error: can not access the translation service.')
         return res.get('trans_result')[0].get('dst')
-    except Exception as e:
+    except (ConnectionError, UnicodeDecodeError) as e2:
         return _('Error: the translation service failed.')
-        app.logger.error(e)
+        current_app.logger.error(e)
